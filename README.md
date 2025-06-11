@@ -19,7 +19,7 @@ Es una API que permite gestionar productos y carritos de una tienda ficticia lla
 ## 📁 Estructura del proyecto
 
 ```
-compumegared-backend/
+CompuMegaRed/
 ├── src/
 │   ├── app.js
 │   ├── routes/
@@ -33,8 +33,7 @@ compumegared-backend/
 │       └── carts.json
 ├── .gitignore
 ├── package.json
-├── README.md
-└── CompuMegaRed.postman_collection.json
+└── README.md
 ```
 
 ---
@@ -43,8 +42,8 @@ compumegared-backend/
 
 1. Cloná el repositorio:
 ```bash
-git clone https://github.com/TU_USUARIO/compumegared-backend.git
-cd compumegared-backend
+git clone https://github.com/FedeCano88/CompuMegaRed
+cd CompuMegaRed
 ```
 
 2. Instalá dependencias:
@@ -90,16 +89,6 @@ El servidor se ejecuta en:
 
 - El archivo `products.json` incluye productos gamer de ejemplo.
 - `carts.json` inicia vacío y se va completando desde Postman.
-
----
-
-## 🧪 Postman
-
-Incluye una colección de Postman lista para probar todos los endpoints:
-
-📁 `CompuMegaRed.postman_collection.json`
-
-Podés importarla en Postman para testear fácilmente la API.
 
 ---
 
