@@ -1,0 +1,167 @@
+[
+  {
+    "title": "Monitor Gamer Samsung 27” 144Hz",
+    "description": "Monitor curvo Full HD para juegos intensos",
+    "code": "SAM-MON27",
+    "price": 349.99,
+    "status": true,
+    "stock": 15,
+    "category": "Monitores",
+    "thumbnails": [
+      "https://example.com/monitor1.jpg"
+    ],
+    "id": 1,
+    "brand": "CompuMegaRed",
+    "createdAt": "2025-06-11"
+  },
+  {
+    "title": "Teclado Mecánico Redragon Kumara K552 RGB",
+    "description": "Teclado compacto con switches blue",
+    "code": "RED-K552",
+    "price": 59.99,
+    "status": true,
+    "stock": 30,
+    "category": "Teclados",
+    "thumbnails": [
+      "https://example.com/teclado1.jpg"
+    ],
+    "id": 2,
+    "brand": "CompuMegaRed",
+    "createdAt": "2025-06-11"
+  },
+  {
+    "title": "Mouse Gamer Logitech G502 HERO",
+    "description": "Mouse con sensor HERO 25K para precisión extrema",
+    "code": "LOG-G502",
+    "price": 49.99,
+    "status": true,
+    "stock": 25,
+    "category": "Mouses",
+    "thumbnails": [
+      "https://example.com/mouse1.jpg"
+    ],
+    "id": 3,
+    "brand": "CompuMegaRed",
+    "createdAt": "2025-06-11"
+  },
+  {
+    "title": "Auriculares HyperX Cloud II",
+    "description": "Sonido envolvente 7.1 con micrófono desmontable",
+    "code": "HPX-CLD2",
+    "price": 89.99,
+    "status": true,
+    "stock": 20,
+    "category": "Auriculares",
+    "thumbnails": [
+      "https://example.com/headset1.jpg"
+    ],
+    "id": 4,
+    "brand": "CompuMegaRed",
+    "createdAt": "2025-06-11"
+  },
+  {
+    "title": "Gabinete Gamer Thermaltake V200 RGB",
+    "description": "Gabinete con vidrio templado y ventiladores RGB",
+    "code": "TT-V200",
+    "price": 99.99,
+    "status": true,
+    "stock": 10,
+    "category": "Gabinetes",
+    "thumbnails": [
+      "https://example.com/case1.jpg"
+    ],
+    "id": 5,
+    "brand": "CompuMegaRed",
+    "createdAt": "2025-06-11"
+  },
+  {
+    "title": "Silla Gamer Cougar Armor One",
+    "description": "Silla ergonómica para largas sesiones de juego",
+    "code": "CGR-ARM1",
+    "price": 199.99,
+    "status": true,
+    "stock": 12,
+    "category": "Sillas",
+    "thumbnails": [
+      "https://example.com/chair1.jpg"
+    ],
+    "id": 6,
+    "brand": "CompuMegaRed",
+    "createdAt": "2025-06-11"
+  },
+  {
+    "title": "Tarjeta Gráfica NVIDIA RTX 3060",
+    "description": "GPU de alto rendimiento para juegos en 1080p/1440p",
+    "code": "NVD-RTX3060",
+    "price": 399.99,
+    "status": true,
+    "stock": 8,
+    "category": "Placas de video",
+    "thumbnails": [
+      "https://example.com/gpu1.jpg"
+    ],
+    "id": 7,
+    "brand": "CompuMegaRed",
+    "createdAt": "2025-06-11"
+  },
+  {
+    "title": "Disco SSD Kingston A2000 1TB NVMe",
+    "description": "Alta velocidad de lectura/escritura para gaming",
+    "code": "KNG-A2K1T",
+    "price": 79.99,
+    "status": true,
+    "stock": 22,
+    "category": "Almacenamiento",
+    "thumbnails": [
+      "https://example.com/ssd1.jpg"
+    ],
+    "id": 8,
+    "brand": "CompuMegaRed",
+    "createdAt": "2025-06-11"
+  },
+  {
+    "title": "Kit de Teclado y Mouse Razer Cynosa",
+    "description": "Combo para gamers con iluminación RGB",
+    "code": "RZR-CYNOSA",
+    "price": 89.99,
+    "status": true,
+    "stock": 18,
+    "category": "Combos",
+    "thumbnails": [
+      "https://example.com/combo1.jpg"
+    ],
+    "id": 9,
+    "brand": "CompuMegaRed",
+    "createdAt": "2025-06-11"
+  },
+  {
+    "title": "Base de refrigeración para notebook KLIM Wind",
+    "description": "Mantiene tu portátil fresca mientras jugás",
+    "code": "KLM-WIND",
+    "price": 29.99,
+    "status": true,
+    "stock": 35,
+    "category": "Accesorios",
+    "thumbnails": [
+      "https://example.com/cooler1.jpg"
+    ],
+    "id": 10,
+    "brand": "CompuMegaRed",
+    "createdAt": "2025-06-11"
+  },
+  {
+    "id": 11,
+    "title": "Mouse Gamer Corsair Harpoon",
+    "description": "Sensor óptico 12000 DPI",
+    "code": "COR-HARP",
+    "price": 39.99,
+    "status": true,
+    "stock": 20,
+    "category": "Mouses",
+    "thumbnails": [
+      "https://example.com/harpoon.jpg"
+    ],
+    "brand": "CompuMegaRed",
+    "createdAt": "2025-06-11"
+  }
+]
