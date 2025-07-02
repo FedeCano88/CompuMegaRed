@@ -4,6 +4,14 @@
     "products": [
       {
         "product": 2,
+        "quantity": 3
+      },
+      {
+        "product": 1,
+        "quantity": 2
+      },
+      {
+        "product": 4,
         "quantity": 1
       }
     ]

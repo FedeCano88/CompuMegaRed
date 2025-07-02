@@ -32,7 +32,7 @@ class ProductManager {
       status: product.status ?? true,
       stock: product.stock,
       category: product.category,
-      thumbnails: product.thumbnails || [],
+      thumbnails: product.thumbnails ? [product.thumbnails] : [],
       brand: 'CompuMegaRed',
       createdAt: new Date().toISOString().split('T')[0]
     };

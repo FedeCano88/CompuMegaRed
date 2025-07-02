@@ -16,6 +16,7 @@ router.get('/:pid', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  console.log('Datos recibidos en POST:', req.body);
   const result = await productManager.addProduct(req.body);
   res.status(201).json(result);
 });

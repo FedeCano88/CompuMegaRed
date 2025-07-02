@@ -8,7 +8,7 @@
     "stock": 15,
     "category": "Monitores",
     "thumbnails": [
-      "https://example.com/monitor1.jpg"
+      "https://m.media-amazon.com/images/I/81XKPle6OAL.jpg"
     ],
     "id": 1,
     "brand": "CompuMegaRed",
@@ -23,7 +23,7 @@
     "stock": 30,
     "category": "Teclados",
     "thumbnails": [
-      "https://example.com/teclado1.jpg"
+      "https://http2.mlstatic.com/D_881426-MLM83522888475_042025-O.jpg"
     ],
     "id": 2,
     "brand": "CompuMegaRed",
@@ -38,7 +38,7 @@
     "stock": 25,
     "category": "Mouses",
     "thumbnails": [
-      "https://example.com/mouse1.jpg"
+      "https://m.media-amazon.com/images/I/612np2rcdBL._UF894,1000_QL80_.jpg"
     ],
     "id": 3,
     "brand": "CompuMegaRed",
@@ -53,7 +53,7 @@
     "stock": 20,
     "category": "Auriculares",
     "thumbnails": [
-      "https://example.com/headset1.jpg"
+      "https://m.media-amazon.com/images/I/71ltsViEA8L._UF894,1000_QL80_.jpg"
     ],
     "id": 4,
     "brand": "CompuMegaRed",
@@ -68,7 +68,7 @@
     "stock": 10,
     "category": "Gabinetes",
     "thumbnails": [
-      "https://example.com/case1.jpg"
+      "https://m.media-amazon.com/images/I/71gJIlGSo-L._UF350,350_QL80_.jpg"
     ],
     "id": 5,
     "brand": "CompuMegaRed",
@@ -83,7 +83,7 @@
     "stock": 12,
     "category": "Sillas",
     "thumbnails": [
-      "https://example.com/chair1.jpg"
+      "https://coregaming.com.mx/assets/uploads/sw_00_660.jpg?1615526288"
     ],
     "id": 6,
     "brand": "CompuMegaRed",
@@ -98,7 +98,7 @@
     "stock": 8,
     "category": "Placas de video",
     "thumbnails": [
-      "https://example.com/gpu1.jpg"
+      "https://m.media-amazon.com/images/I/61XAtpgr1lL.jpg"
     ],
     "id": 7,
     "brand": "CompuMegaRed",
@@ -113,7 +113,7 @@
     "stock": 22,
     "category": "Almacenamiento",
     "thumbnails": [
-      "https://example.com/ssd1.jpg"
+      "https://m.media-amazon.com/images/I/51LO3JpxXSL._UF894,1000_QL80_.jpg"
     ],
     "id": 8,
     "brand": "CompuMegaRed",
@@ -128,7 +128,7 @@
     "stock": 18,
     "category": "Combos",
     "thumbnails": [
-      "https://example.com/combo1.jpg"
+      "https://www.cyberpuerta.mx/img/product/S/CP-RAZER-RZ84-02740300-B311-2b3c11.jpg"
     ],
     "id": 9,
     "brand": "CompuMegaRed",
@@ -143,7 +143,7 @@
     "stock": 35,
     "category": "Accesorios",
     "thumbnails": [
-      "https://example.com/cooler1.jpg"
+      "https://m.media-amazon.com/images/I/91X6s7MblhL._AC_UF894,1000_QL80_.jpg"
     ],
     "id": 10,
     "brand": "CompuMegaRed",
@@ -151,17 +151,17 @@
   },
   {
     "id": 11,
-    "title": "Mouse Gamer Corsair Harpoon",
-    "description": "Sensor óptico 12000 DPI",
-    "code": "COR-HARP",
-    "price": 39.99,
+    "title": "Corsair",
+    "description": "Mouse",
+    "code": "123",
+    "price": "33",
     "status": true,
-    "stock": 20,
-    "category": "Mouses",
+    "stock": "33",
+    "category": "2",
     "thumbnails": [
-      "https://example.com/harpoon.jpg"
+      "https://http2.mlstatic.com/D_NQ_NP_927692-MLU72569138968_112023-O.webp"
     ],
     "brand": "CompuMegaRed",
-    "createdAt": "2025-06-11"
+    "createdAt": "2025-07-02"
   }
 ]
