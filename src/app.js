@@ -30,5 +30,26 @@ const io = new Server(httpServer);
 app.set('io', io);
 
 
+import ProductManager from './managers/ProductManager.js';
+const productManager = new ProductManager();
 
+io.on("connection", async (socket) => {
+  console.log("🔌 Cliente conectado");
 
+  // Enviar productos actuales
+  socket.emit("productos", await productManager.getProducts());
+
+  // Nuevo producto
+  socket.on("new-product", async (producto) => {
+    await productManager.addProduct(producto);
+    const productosActualizados = await productManager.getProducts();
+    io.emit("productos", productosActualizados);
+  });
+
+  // Eliminar producto
+  socket.on("delete-product", async (id) => {
+    await productManager.deleteProduct(id);
+    const productosActualizados = await productManager.getProducts();
+    io.emit("productos", productosActualizados);
+  });
+});

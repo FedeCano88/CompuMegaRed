@@ -1,6 +1,6 @@
 # 🖥️ CompuMegaRed - API y Tienda Interactiva
 
-Este proyecto fue desarrollado como parte de la **Primera Entrega** del curso **Programación Backend I - Coderhouse**.
+Este proyecto fue desarrollado como parte de la **Segunda Entrega** del curso **Programación Backend I - Coderhouse**.
 
 Es una aplicación que permite gestionar productos y carritos de una tienda ficticia llamada **CompuMegaRed**, especializada en accesorios de computación gamer.
 
@@ -125,6 +125,6 @@ El servidor se ejecuta en:
 **Federico Cano**  
 Estudiante de Coderhouse  
 Curso: Programación Backend I  
-Entrega 1
+Entrega 2
 
 ---

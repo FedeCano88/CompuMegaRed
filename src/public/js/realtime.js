@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
   const socket = io();
 
@@ -15,10 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
       price: formData.get('price'),
       stock: formData.get('stock'),
       category: formData.get('category'),
-      thumbnails: formData.get('thumbnails'),
+      thumbnails: [formData.get('thumbnails')],
     };
-
-    console.log('Enviando producto:', newProduct); // DEBUG
 
     socket.emit('new-product', newProduct);
     form.reset();
@@ -27,32 +26,22 @@ document.addEventListener('DOMContentLoaded', () => {
   list.addEventListener('click', (e) => {
     if (e.target.classList.contains('delete-btn')) {
       const id = e.target.dataset.id;
-      console.log(`Click en eliminar producto ID: ${id}`);
       socket.emit('delete-product', parseInt(id));
     }
   });
 
-  socket.on('products-updated', (products) => {
+  socket.on('productos', (productos) => {
     list.innerHTML = '';
-    products.forEach(p => {
-      let imgTag = '';
-      if (p.thumbnails && p.thumbnails[0]) {
-        imgTag = `<img src="${p.thumbnails[0]}" alt="${p.title}" style="width:100px;height:auto;margin-right:10px;">`;
-      } else {
-        imgTag = `<img src="/images/placeholder.png" alt="Sin imagen" style="width:100px;height:auto;margin-right:10px;">`;
-      }
-
-      list.innerHTML += `
-        <li>
-          <div style="display:flex;align-items:center;">
-            ${imgTag}
-            <strong>${p.title}</strong> - ${p.description} - $${p.price}
-          </div>
-          <button class="delete-btn" data-id="${p.id}">Eliminar</button>
-        </li>`;
+    productos.forEach(prod => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <div style="display:flex;align-items:center;">
+          <img src="${prod.thumbnails?.[0] || 'https://via.placeholder.com/100x100?text=Sin+Imagen'}" alt="${prod.title}" style="width:100px;height:auto;margin-right:10px;">
+          <strong>${prod.title}</strong> - ${prod.description} - $${prod.price}
+        </div>
+        <button class="delete-btn" data-id="${prod.id}">Eliminar</button>
+      `;
+      list.appendChild(li);
     });
   });
 });
-
-
-
