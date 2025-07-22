@@ -105,63 +105,50 @@
     "createdAt": "2025-06-11"
   },
   {
-    "title": "Disco SSD Kingston A2000 1TB NVMe",
-    "description": "Alta velocidad de lectura/escritura para gaming",
-    "code": "KNG-A2K1T",
-    "price": 79.99,
-    "status": true,
-    "stock": 22,
-    "category": "Almacenamiento",
-    "thumbnails": [
-      "https://m.media-amazon.com/images/I/51LO3JpxXSL._UF894,1000_QL80_.jpg"
-    ],
-    "id": 8,
-    "brand": "CompuMegaRed",
-    "createdAt": "2025-06-11"
-  },
-  {
-    "title": "Kit de Teclado y Mouse Razer Cynosa",
-    "description": "Combo para gamers con iluminación RGB",
-    "code": "RZR-CYNOSA",
-    "price": 89.99,
-    "status": true,
-    "stock": 18,
-    "category": "Combos",
-    "thumbnails": [
-      "https://www.cyberpuerta.mx/img/product/S/CP-RAZER-RZ84-02740300-B311-2b3c11.jpg"
-    ],
     "id": 9,
+    "title": "Asus Rog Strix B550",
+    "description": "Mother Gaming",
+    "code": "11",
+    "price": "300",
+    "status": true,
+    "stock": "2",
+    "category": "Mother",
+    "thumbnails": [
+      "https://intercompras.com/product_thumb.php?img=images/productgallery/ASUS_90MB19V0-M0EAY0_ICECAT_57556020.jpg&w=300&h=230"
+    ],
     "brand": "CompuMegaRed",
-    "createdAt": "2025-06-11"
+    "createdAt": "2025-07-09"
   },
   {
-    "title": "Base de refrigeración para notebook KLIM Wind",
-    "description": "Mantiene tu portátil fresca mientras jugás",
-    "code": "KLM-WIND",
-    "price": 29.99,
-    "status": true,
-    "stock": 35,
-    "category": "Accesorios",
-    "thumbnails": [
-      "https://m.media-amazon.com/images/I/91X6s7MblhL._AC_UF894,1000_QL80_.jpg"
-    ],
     "id": 10,
+    "title": "Monitor Samsung",
+    "description": "Monitor LED 24 pulgadas",
+    "price": 150,
+    "status": true,
+    "stock": 10,
+    "category": "monitores",
+    "thumbnails": [
+      [
+        "https://i.imgur.com/sample.jpg"
+      ]
+    ],
     "brand": "CompuMegaRed",
-    "createdAt": "2025-06-11"
+    "createdAt": "2025-07-21"
   },
   {
     "id": 11,
-    "title": "Corsair",
-    "description": "Mouse",
-    "code": "123",
-    "price": "33",
+    "title": "Monitor Samsung",
+    "description": "Monitor LED 24 pulgadas",
+    "price": 150,
     "status": true,
-    "stock": "33",
-    "category": "2",
+    "stock": 10,
+    "category": "monitores",
     "thumbnails": [
-      "https://http2.mlstatic.com/D_NQ_NP_927692-MLU72569138968_112023-O.webp"
+      [
+        "https://i.imgur.com/sample.jpg"
+      ]
     ],
     "brand": "CompuMegaRed",
-    "createdAt": "2025-07-02"
+    "createdAt": "2025-07-21"
   }
 ]

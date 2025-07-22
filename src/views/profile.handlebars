@@ -1,0 +1,45 @@
+
+<h2 style="color: white;">Perfil de Compra</h2>
+
+<div id="purchase-history">
+  <p style="color: white;">Cargando historial...</p>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const container = document.getElementById("purchase-history");
+
+    if (!user || !user.email) {
+      container.innerHTML = "<p style='color:white;'>No hay usuario autenticado.</p>";
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/purchases/${user.email}`);
+      if (!res.ok) {
+        const errorData = await res.json();
+        container.innerHTML = `<p style="color:white;">${errorData.error}</p>`;
+        return;
+      }
+
+      const compras = await res.json();
+
+      if (!compras.length) {
+        container.innerHTML = "<p style='color:white;'>No hay compras registradas aún.</p>";
+        return;
+      }
+
+      container.innerHTML = compras.map(c => `
+        <div style="background-color: #2d1d4c; padding: 15px; border-radius: 8px; margin-bottom: 20px; color: white;">
+          <p><strong>🗓 Fecha:</strong> ${new Date(c.createdAt).toLocaleString()}</p>
+          <p><strong>💳 Método de Pago:</strong> ${c.paymentMethod}</p>
+          <p><strong>💰 Monto Total:</strong> $${c.total.toFixed(2)}</p>
+        </div>
+      `).join('');
+    } catch (err) {
+      console.error(err);
+      container.innerHTML = "<p style='color:white;'>Ocurrió un error al cargar los datos.</p>";
+    }
+  });
+</script>

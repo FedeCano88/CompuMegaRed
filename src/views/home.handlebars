@@ -1,6 +1,9 @@
-<h1>Productos actuales</h1>
+<h2>Productos actuales</h2>
 <ul>
   {{#each products}}
-    <li><strong>{{title}}</strong> - {{description}} - ${{price}}</li>
+    <li>
+      <strong>{{this.title}}</strong>
+      <span>- {{this.description}} - ${{this.price}}</span>
+    </li>
   {{/each}}
 </ul>

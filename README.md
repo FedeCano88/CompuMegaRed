@@ -1,10 +1,10 @@
-# 🖥️ CompuMegaRed - API y Tienda Interactiva
+# 🖥️ CompuMegaRed - Tienda Online con Backend Profesional
 
-Este proyecto fue desarrollado como parte de la **Primera Entrega** del curso **Programación Backend I - Coderhouse**.
+Este proyecto fue desarrollado como parte de la **Entrega Final** del curso **Programación Backend - Coderhouse**.
 
-Es una aplicación que permite gestionar productos y carritos de una tienda ficticia llamada **CompuMegaRed**, especializada en accesorios de computación gamer.
+Se trata de una aplicación backend completa que permite gestionar productos y carritos con persistencia en **MongoDB**, renderizado de vistas con **Handlebars**, y comunicación en tiempo real mediante **Socket.IO**.
 
-Incluye un sistema de **actualización en tiempo real** usando WebSockets con Socket.io, vistas renderizadas con **Handlebars**, y una **tienda interactiva** con carrito para simular el flujo de compra.
+Incluye filtros avanzados, paginación, ordenamientos por precio, vistas dinámicas de productos y carritos, y simulación de compra.
 
 ---
 
@@ -12,11 +12,13 @@ Incluye un sistema de **actualización en tiempo real** usando WebSockets con So
 
 - Node.js
 - Express.js
-- Socket.io
+- MongoDB + Mongoose
+- Socket.IO (WebSockets)
 - Express-Handlebars
-- File System (`fs/promises`)
 - JavaScript ES Modules
-- Postman (para pruebas)
+- SweetAlert2 (alertas visuales)
+- Bootstrap (estética visual)
+- Postman (para testing de endpoints)
 
 ---
 
@@ -29,102 +31,142 @@ CompuMegaRed/
 │   ├── routes/
 │   │   ├── products.routes.js
 │   │   ├── carts.routes.js
+│   │   ├── users.routes.js
 │   │   └── views.routes.js
+│   ├── models/
+│   │   ├── product.model.js
+│   │   ├── cart.model.js
+│   │   └── user.model.js
 │   ├── managers/
 │   │   ├── ProductManager.js
 │   │   └── CartManager.js
 │   ├── views/
-│   │   ├── home.handlebars
-│   │   ├── realTimeProducts.handlebars
-│   │   └── shop.handlebars
+│   │   ├── products.handlebars
+│   │   ├── productDetail.handlebars
+│   │   ├── cartDetail.handlebars
+│   │   └── realtime.handlebars
 │   ├── public/
 │   │   └── js/
-│   │       └── realtime.js
-│   └── data/
-│       ├── products.json
-│       └── carts.json
-├── .gitignore
+│   │       └── main.js
+│   └── config/
+│       └── db.js
 ├── package.json
 └── README.md
 ```
 
 ---
 
-## 📦 Instalación y ejecución
+## ⚙️ Instalación y ejecución
 
-1. Cloná el repositorio:
+1. Clonar el repositorio:
 ```bash
 git clone https://github.com/FedeCano88/CompuMegaRed
 cd CompuMegaRed
 ```
 
-2. Instalá dependencias:
+2. Instalar dependencias:
 ```bash
 npm install
 ```
 
-3. Iniciá el servidor:
+3. Configurar archivo `.env` (si aplica, para la conexión a MongoDB)
+
+4. Iniciar el servidor:
 ```bash
-node src/app.js
+npm run start
 ```
 
-El servidor se ejecuta en:  
+Servidor local:
 📍 `http://localhost:8080`
 
 ---
 
-## 🔌 Endpoints disponibles
+## 📦 Endpoints disponibles
 
-### Productos `/api/products`
+### 🔹 Productos `/api/products`
 
-| Método | Ruta                  | Descripción                              |
-|--------|-----------------------|------------------------------------------|
-| GET    | `/api/products`       | Listar todos los productos               |
-| GET    | `/api/products/:pid`  | Obtener un producto por su ID            |
-| POST   | `/api/products`       | Agregar un nuevo producto                |
-| PUT    | `/api/products/:pid`  | Actualizar un producto existente         |
-| DELETE | `/api/products/:pid`  | Eliminar un producto por su ID           |
+| Método | Ruta                        | Descripción                                                   |
+|--------|-----------------------------|---------------------------------------------------------------|
+| GET    | `/api/products`             | Listado con filtros, paginación y ordenamiento (`query`, `limit`, `page`, `sort`) |
+| GET    | `/api/products/:pid`        | Obtener un producto por ID                                    |
+| POST   | `/api/products`             | Crear un nuevo producto                                       |
+| PUT    | `/api/products/:pid`        | Actualizar un producto                                        |
+| DELETE | `/api/products/:pid`        | Eliminar un producto                                          |
+
+### 🔹 Carritos `/api/carts`
+
+| Método | Ruta                                        | Descripción                                                   |
+|--------|---------------------------------------------|---------------------------------------------------------------|
+| POST   | `/api/carts`                                | Crear nuevo carrito                                           |
+| GET    | `/api/carts/:cid`                           | Obtener productos del carrito con populate                    |
+| POST   | `/api/carts/:cid/product/:pid`              | Agregar un producto al carrito                               |
+| DELETE | `/api/carts/:cid/products/:pid`             | Eliminar un producto específico del carrito                   |
+| PUT    | `/api/carts/:cid`                           | Actualizar carrito completo con un arreglo de productos       |
+| PUT    | `/api/carts/:cid/products/:pid`             | Actualizar cantidad de un producto específico                 |
+| DELETE | `/api/carts/:cid`                           | Eliminar todos los productos del carrito                      |
 
 ---
 
-### Carritos `/api/carts`
+## 📊 Respuesta paginada de `/api/products`
 
-| Método | Ruta                                | Descripción                                 |
-|--------|-------------------------------------|---------------------------------------------|
-| POST   | `/api/carts`                        | Crear un nuevo carrito                      |
-| GET    | `/api/carts/:cid`                   | Ver los productos de un carrito             |
-| POST   | `/api/carts/:cid/product/:pid`      | Agregar producto al carrito (de a uno)      |
+Formato esperado:
+```json
+{
+  "status": "success",
+  "payload": [...productos],
+  "totalPages": 5,
+  "prevPage": 1,
+  "nextPage": 3,
+  "page": 2,
+  "hasPrevPage": true,
+  "hasNextPage": true,
+  "prevLink": "...",
+  "nextLink": "..."
+}
+```
 
 ---
 
 ## 🖼️ Vistas disponibles
 
-- **Home:**  
-  📍 `http://localhost:8080/`  
-  Muestra la lista de productos actuales renderizados con Handlebars.
+- `/products`:  
+  Vista principal con productos paginados, filtrables y ordenables.
 
-- **Productos en Tiempo Real:**  
-  📍 `http://localhost:8080/realtimeproducts`  
-  Permite agregar y eliminar productos en tiempo real usando websockets. La lista se actualiza automáticamente.
+- `/products/:pid`:  
+  Detalle de producto con botón para agregar al carrito.
 
-- **Tienda:**  
-  📍 `http://localhost:8080/shop`  
-  Permite a los usuarios ver productos, agregarlos al carrito, ver el detalle con cantidad y subtotal, vaciar el carrito y simular la compra mostrando el total.
+- `/carts/:cid`:  
+  Detalle de carrito con todos los productos y cantidades agregadas.
 
----
-
-## 📂 Datos cargados
-
-- El archivo `products.json` incluye productos gamer de ejemplo.
-- `carts.json` inicia vacío y se completa al agregar productos desde la tienda o Postman.
+- `/realtimeproducts`:  
+  Vista de administración en tiempo real (WebSockets) para agregar y eliminar productos.  
 
 ---
 
-## 👋 Autor
+## 🔁 Funcionalidad en tiempo real
+
+- Socket.IO utilizado para emitir eventos cuando se agrega o elimina un producto.
+- La vista se actualiza automáticamente sin recargar la página.
+
+---
+
+## 🧠 Base de datos
+
+- Se utiliza **MongoDB Atlas o local** como persistencia principal.
+- Los carritos referencian productos por ID y se utiliza `.populate()` para mostrar sus datos completos.
+
+---
+
+## 📹 Video explicativo
+
+[Video de entrega final](https://drive.google.com/file/d/1nQUXoZ7Oq0uGukaE13PL-E6dM77KjwNv/view?usp=sharing)
+
+---
+
+## 👨‍💻 Autor
 
 **Federico Cano**  
 Estudiante de Coderhouse  
-Curso: Programación Backend I  
-Entrega 1
+Entrega Final - Backend
 
 ---

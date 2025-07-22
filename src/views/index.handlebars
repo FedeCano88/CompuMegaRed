@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Productos</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <h1>Listado de Productos</h1>
+
+  <form method="GET" action="/products" style="margin-bottom: 20px;">
+    <label for="sort">Ordenar por precio:</label>
+    <select name="sort" id="sort">
+      <option value="">Sin orden</option>
+      <option value="asc">Menor a mayor</option>
+      <option value="desc">Mayor a menor</option>
+    </select>
+
+    <label for="query">Filtrar (categoría o disponibilidad):</label>
+    <input type="text" name="query" id="query" placeholder="Ej: monitores o disponible" />
+
+    <button type="submit">Aplicar</button>
+  </form>
+
+  <div id="product-list">
+    {{#each products}}
+      <div class="product-card">
+        <h2>{{this.title}}</h2>
+        <img src="{{this.thumbnails.[0]}}" alt="{{this.title}}" width="200" />
+        <p><strong>Descripción:</strong> {{this.description}}</p>
+        <p><strong>Categoría:</strong> {{this.category}}</p>
+        <p><strong>Precio:</strong> ${{this.price}}</p>
+        <p><strong>Stock:</strong> {{this.stock}}</p>
+        <form method="POST" action="/api/carts/{{../cartId}}/product/{{this._id}}">
+          <button type="submit">Agregar al carrito</button>
+        </form>
+      </div>
+    {{/each}}
+  </div>
+
+  <div id="pagination">
+    {{#if pagination.hasPrevPage}}
+      <a href="/products?page={{pagination.prevPage}}&sort={{../sort}}&query={{../query}}">Anterior</a>
+    {{/if}}
+
+    <span>Página {{pagination.page}} de {{pagination.totalPages}}</span>
+
+    {{#if pagination.hasNextPage}}
+      <a href="/products?page={{pagination.nextPage}}&sort={{../sort}}&query={{../query}}">Siguiente</a>
+    {{/if}}
+  </div>
+</body>
+</html>
+

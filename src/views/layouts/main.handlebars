@@ -2,16 +2,53 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>CompuMegaRed</title>
+  <title>{{title}}</title>
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <div class="nav">
-    <a href="/">Home</a>
-    <a href="/realtimeproducts">Vista en Tiempo Real</a>
-    <a href="/shop" class="btn btn-primary">Tienda</a>
+
+  <nav class="nav-container">
+    <div class="nav-left">
+      <a href="/" class="btn-nav">Home</a>
+      <a href="/realtimeproducts" class="btn-nav">Vista en Tiempo Real</a>
+      <a href="/shop" class="btn-nav">Tienda</a>
+    </div>
+    <div class="nav-right" id="userSection"></div>
+  </nav>
+
+  <div class="page-title">
+    <i class="fas fa-shopping-cart"></i>
+    <strong>Tienda CompuMegaRed</strong>
   </div>
+
   {{{body}}}
+
+  <script>
+    const user = JSON.parse(localStorage.getItem('user'));
+    const userSection = document.getElementById('userSection');
+
+    if (user && user.first_name) {
+      userSection.innerHTML = `
+        <span class="user-welcome">Hola, <strong>${user.first_name}</strong></span>
+        <a href="/profile" class="btn-nav">Perfil de Compra</a>
+        <button onclick="logout()" class="btn-logout">Cerrar sesión</button>
+      `;
+    } else {
+      userSection.innerHTML = `
+        <a href="/register" class="btn-nav">Registrarse</a>
+        <a href="/login" class="btn-nav">Login</a>
+      `;
+    }
+
+    function logout() {
+      localStorage.removeItem('user');
+      location.href = "/";
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/js/main.js"></script>
 </body>
 </html>
 

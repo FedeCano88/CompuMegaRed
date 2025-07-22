@@ -1,14 +1,13 @@
-<h1 style="margin-bottom:20px;">🛒 Tienda CompuMegaRed</h1>
+<h1 class="page-title">🛒 Tienda CompuMegaRed</h1>
 
-<div style="display:flex; flex-wrap:wrap; gap:20px;">
+<div class="product-grid">
   {{#each products}}
-  <div style="border:1px solid #ccc; padding:10px; width:220px; background-color:#2d1d4c; border-radius:8px;">
-    <img src="{{#if thumbnails.[0]}}{{thumbnails.[0]}}{{else}}https://via.placeholder.com/200x150?text=Sin+Imagen{{/if}}" 
-         alt="{{title}}" 
-         style="width:200px; height:150px; object-fit:cover; border-radius:5px;">
-    <h4 style="color:white; margin-top:10px;">{{title}}</h4>
-    <p style="color:white;">${{price}}</p>
-    <button onclick="addToCart({{id}})" style="padding:5px 10px;">Agregar al carrito</button>
+  <div class="product-card">
+    <img src="{{#if thumbnails.[0]}}{{thumbnails.[0]}}{{else}}https://via.placeholder.com/220x180?text=Sin+Imagen{{/if}}" 
+         alt="{{title}}">
+    <h4>{{title}}</h4>
+    <p>${{price}}</p>
+    <button onclick="addToCart('{{this._id}}')">Agregar al carrito</button>
   </div>
   {{/each}}
 </div>
@@ -26,64 +25,194 @@
 </div>
 
 <script>
-  let cartId = 1; // simulamos carrito único
-  let cart = [];
+  const cartId = "{{cartId}}";
+</script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
   async function addToCart(productId) {
     try {
-      const response = await fetch(`/api/products/${productId}`);
-      const product = await response.json();
+      const res = await fetch(`/api/carts/${cartId}/product/${productId}`, {
+        method: 'POST'
+      });
 
-      const existing = cart.find(item => item.id === productId);
-      if (existing) {
-        existing.quantity++;
-      } else {
-        cart.push({
-          id: product.id,
-          title: product.title,
-          price: parseFloat(product.price),
-          quantity: 1
-        });
-      }
+      if (!res.ok) throw new Error('Error en el servidor');
+
+      Swal.fire("🛒 Producto agregado", "El producto fue añadido al carrito", "success");
       renderCart();
     } catch (error) {
-      console.error('Error agregando al carrito:', error);
+      console.error('❌ Error agregando al carrito:', error);
+      Swal.fire("⚠️ Error", "No se pudo agregar el producto al carrito", "error");
     }
   }
 
-  function renderCart() {
-    const cartList = document.getElementById('cart-list');
-    cartList.innerHTML = '';
-    let total = 0;
+  async function clearCart() {
+    try {
+      const res = await fetch(`/api/carts/${cartId}`, {
+        method: 'DELETE'
+      });
 
-    if (cart.length === 0) {
-      cartList.innerHTML = '<li>El carrito está vacío.</li>';
-    } else {
-      cart.forEach(p => {
-        const subtotal = p.price * p.quantity;
+      if (!res.ok) throw new Error('Error al vaciar el carrito');
+
+      Swal.fire("🗑️ Carrito vaciado", "Se eliminaron todos los productos del carrito", "success");
+      renderCart();
+    } catch (error) {
+      console.error("❌ Error al vaciar carrito:", error);
+      Swal.fire("⚠️ Error", "No se pudo vaciar el carrito", "error");
+    }
+  }
+
+  async function renderCart() {
+    try {
+      const res = await fetch(`/api/carts/${cartId}`);
+      const data = await res.json();
+      const cartItems = data.payload.products;
+
+      const cartList = document.getElementById('cart-list');
+      cartList.innerHTML = '';
+
+      if (cartItems.length === 0) {
+        cartList.innerHTML = '<li>El carrito está vacío.</li>';
+        return;
+      }
+
+      let total = 0;
+
+      cartItems.forEach(p => {
+        const subtotal = p.product.price * p.quantity;
         total += subtotal;
         cartList.innerHTML += `
           <li style="margin-bottom:10px; padding:8px; background-color:#2d1d4c; border-radius:4px; color:white;">
-            <strong>${p.title}</strong> - $${p.price} x ${p.quantity} = $${subtotal.toFixed(2)}
+            <strong>${p.product.title}</strong> - $${p.product.price} x ${p.quantity} = $${subtotal.toFixed(2)}
           </li>`;
       });
+
       cartList.innerHTML += `<li style="margin-top:15px; font-weight:bold; color:white;">Total: $${total.toFixed(2)}</li>`;
+    } catch (error) {
+      console.error("❌ Error al cargar carrito:", error);
     }
   }
 
-  function clearCart() {
-    cart = [];
-    renderCart();
+  async function checkout() {
+    try {
+      const res = await fetch(`/api/carts/${cartId}`);
+      const data = await res.json();
+      const cartItems = data.payload.products;
+
+      if (cartItems.length === 0) {
+        Swal.fire("El carrito está vacío", "Agrega productos antes de comprar", "warning");
+        return;
+      }
+
+      const metodo = await Swal.fire({
+        title: 'Elegí un método de pago',
+        input: 'radio',
+        inputOptions: {
+          transferencia: 'Transferencia Bancaria',
+          tarjeta: 'Tarjeta de Crédito'
+        },
+        inputValidator: (value) => {
+          if (!value) return 'Debes seleccionar un método';
+        },
+        confirmButtonText: 'Continuar',
+        showCancelButton: true
+      });
+
+      if (!metodo.isConfirmed) return;
+
+      if (metodo.value === 'transferencia') {
+        await Swal.fire({
+          icon: 'info',
+          title: 'Transferencia Bancaria',
+          html: `
+            <p>Enviar el pago a: <strong>CUENTA FALSA: 000-9999-FAKE</strong></p>
+            <p>Enviar comprobante a: <strong>cuentafalsa@fake123.com</strong></p>
+            <p>📩 Dentro de las 24 horas tendrás respuesta de tu compra.</p>
+          `
+        });
+      } else if (metodo.value === 'tarjeta') {
+        const form = await Swal.fire({
+          title: 'Pago con Tarjeta',
+          html: `
+            <input type="text" placeholder="Nombre en tarjeta" class="swal2-input">
+            <input type="text" placeholder="Número de tarjeta" class="swal2-input">
+            <input type="text" placeholder="Vencimiento MM/AA" class="swal2-input">
+            <input type="text" placeholder="CVV" class="swal2-input">
+            <select class="swal2-select">
+              <option>Visa</option>
+              <option>Mastercard</option>
+              <option>American Express</option>
+            </select>
+          `,
+          confirmButtonText: 'Pagar',
+          preConfirm: () => true
+        });
+
+        if (!form.isConfirmed) return;
+
+        await Swal.fire("✅ Pago aprobado", "Gracias por tu compra", "success");
+      }
+
+      await guardarCompra(metodo.value, cartItems);
+      await clearCart();
+    } catch (error) {
+      console.error("❌ Error en el proceso de compra:", error);
+      Swal.fire("⚠️ Error", "No se pudo completar la compra", "error");
+    }
   }
 
-  function checkout() {
-    if (cart.length === 0) {
-      alert("El carrito está vacío. Agrega productos antes de comprar.");
+  async function guardarCompra(metodoPago, cartItems) {
+    const usuario = JSON.parse(localStorage.getItem("user"));
+    if (!usuario || !usuario.email) {
+      Swal.fire("⚠️ Error", "No hay usuario autenticado", "error");
       return;
     }
-    let total = cart.reduce((acc, p) => acc + p.price * p.quantity, 0);
-    alert(`¡Compra realizada! Total: $${total.toFixed(2)}\nGracias por tu compra.`);
-    clearCart();
+
+    const compra = {
+      email: usuario.email,
+      date: new Date().toISOString(),
+      method: metodoPago,
+      status: metodoPago === 'transferencia' ? 'pendiente' : 'confirmado',
+      items: cartItems.map(p => ({
+        title: p.product.title,
+        quantity: p.quantity,
+        price: p.product.price,
+        subtotal: (p.quantity * p.product.price).toFixed(2)
+      })),
+      total: cartItems.reduce((acc, p) => acc + p.product.price * p.quantity, 0).toFixed(2)
+    };
+
+    try {
+      const res = await fetch('/api/purchases', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(compra)
+      });
+
+      const data = await res.json();
+      console.log("✅ Compra registrada:", data);
+    } catch (error) {
+      console.error("❌ Error al guardar la compra:", error);
+    }
+  }
+
+  // Cargar carrito cuando se abre la página
+  window.addEventListener('DOMContentLoaded', renderCart);
+</script>
+
+<script>
+  const url = new URL(window.location.href);
+  if (!url.searchParams.get("email")) {
+    const usuario = JSON.parse(localStorage.getItem("user"));
+    if (usuario && usuario.email) {
+      const encodedEmail = encodeURIComponent(usuario.email);
+      window.location.href = `/shop?email=${encodedEmail}`;
+    }
   }
 </script>
+
+
 

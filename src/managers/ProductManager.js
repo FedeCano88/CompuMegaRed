@@ -1,30 +1,17 @@
 // src/managers/ProductManager.js
-import fs from 'fs/promises';
-import path from 'path';
-
-const filePath = path.resolve('src/data/products.json');
+import { ProductModel } from '../models/product.model.js';
 
 class ProductManager {
-  constructor() {
-    this.path = filePath;
-  }
-
   async getProducts() {
-    const data = await fs.readFile(this.path, 'utf-8');
-    return JSON.parse(data);
+    return await ProductModel.find();
   }
 
   async getProductById(id) {
-    const products = await this.getProducts();
-    return products.find(p => p.id === id);
+    return await ProductModel.findById(id);
   }
 
   async addProduct(product) {
-    const products = await this.getProducts();
-    const newId = products.length ? products[products.length - 1].id + 1 : 1;
-
-    const newProduct = {
-      id: newId,
+    const newProduct = new ProductModel({
       title: product.title,
       description: product.description,
       code: product.code,
@@ -33,34 +20,24 @@ class ProductManager {
       stock: product.stock,
       category: product.category,
       thumbnails: product.thumbnails ? [product.thumbnails] : [],
-      brand: 'CompuMegaRed',
-      createdAt: new Date().toISOString().split('T')[0]
-    };
+      brand: 'CompuMegaRed'
+    });
 
-    products.push(newProduct);
-    await fs.writeFile(this.path, JSON.stringify(products, null, 2));
-    return newProduct;
+    return await newProduct.save();
   }
 
   async updateProduct(id, updatedFields) {
-    const products = await this.getProducts();
-    const index = products.findIndex(p => p.id === id);
-    if (index === -1) return { error: 'Producto no encontrado' };
-
-    products[index] = { ...products[index], ...updatedFields, id }; // no se cambia el ID
-    await fs.writeFile(this.path, JSON.stringify(products, null, 2));
-    return products[index];
+    const updatedProduct = await ProductModel.findByIdAndUpdate(id, updatedFields, { new: true });
+    if (!updatedProduct) return { error: 'Producto no encontrado' };
+    return updatedProduct;
   }
 
   async deleteProduct(id) {
-    let products = await this.getProducts();
-    const product = products.find(p => p.id === id);
-    if (!product) return { error: 'Producto no encontrado' };
-
-    products = products.filter(p => p.id !== id);
-    await fs.writeFile(this.path, JSON.stringify(products, null, 2));
+    const result = await ProductModel.findByIdAndDelete(id);
+    if (!result) return { error: 'Producto no encontrado' };
     return { message: 'Producto eliminado' };
   }
 }
 
 export default ProductManager;
+

@@ -24,13 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
     form.reset();
   });
 
-  list.addEventListener('click', (e) => {
-    if (e.target.classList.contains('delete-btn')) {
-      const id = e.target.dataset.id;
-      console.log(`Click en eliminar producto ID: ${id}`);
-      socket.emit('delete-product', parseInt(id));
-    }
-  });
+list.addEventListener('click', (e) => {
+  if (e.target.classList.contains('delete-btn')) {
+    const id = e.target.dataset.id;
+    console.log(`Click en eliminar producto ID: ${id}`);
+    socket.emit('delete-product', id); // sin parseInt
+  }
+});
 
   socket.on('products-updated', (products) => {
     list.innerHTML = '';
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ${imgTag}
             <strong>${p.title}</strong> - ${p.description} - $${p.price}
           </div>
-          <button class="delete-btn" data-id="${p.id}">Eliminar</button>
+          <button class="delete-btn" data-id="${p._id}">Eliminar</button>
         </li>`;
     });
   });
