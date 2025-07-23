@@ -109,46 +109,14 @@
     "title": "Asus Rog Strix B550",
     "description": "Mother Gaming",
     "code": "11",
-    "price": "300",
+    "price": 300.0,
     "status": true,
-    "stock": "2",
+    "stock": 2,
     "category": "Mother",
     "thumbnails": [
       "https://intercompras.com/product_thumb.php?img=images/productgallery/ASUS_90MB19V0-M0EAY0_ICECAT_57556020.jpg&w=300&h=230"
     ],
     "brand": "CompuMegaRed",
     "createdAt": "2025-07-09"
-  },
-  {
-    "id": 10,
-    "title": "Monitor Samsung",
-    "description": "Monitor LED 24 pulgadas",
-    "price": 150,
-    "status": true,
-    "stock": 10,
-    "category": "monitores",
-    "thumbnails": [
-      [
-        "https://i.imgur.com/sample.jpg"
-      ]
-    ],
-    "brand": "CompuMegaRed",
-    "createdAt": "2025-07-21"
-  },
-  {
-    "id": 11,
-    "title": "Monitor Samsung",
-    "description": "Monitor LED 24 pulgadas",
-    "price": 150,
-    "status": true,
-    "stock": 10,
-    "category": "monitores",
-    "thumbnails": [
-      [
-        "https://i.imgur.com/sample.jpg"
-      ]
-    ],
-    "brand": "CompuMegaRed",
-    "createdAt": "2025-07-21"
   }
 ]
